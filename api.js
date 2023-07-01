@@ -1,33 +1,26 @@
-const bodyParser = require("body-parser");
 const express = require("express");
 const cors = require("cors");
+const xlsx = require("xlsx");
 
 const app = express();
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
-const PORT = process.env.PORT || 3030;
+const PORT = process.env.PORT || 3000;
+
+// File
+const filePath = "C:/Users/Lenovo/Downloads/user-data-api.xlsx";
+const file = xlsx.readFile(filePath);
+
+// Getting Sheets then converting to JSON
+const wb = file.Sheets["Clients"];
+const ws = xlsx.utils.sheet_to_json(wb);
 
 app.get("/", (req, res) => {
-  res.send("Welcome to my own api!");
+  res.send("Welcome to Students API!");
 });
 
 app.get("/getStudents", (req, res) => {
-  res.send(data);
-});
-
-app.post("/login", (req, res) => {
-  let _username = req.body.username;
-  let _password = req.body.password;
-
-  if (_username == "charbel" && _password == 123) {
-    res.status(200).send("Success");
-  } else {
-    res.status(403).send("Unauthorized");
-  }
-  console.log(_username, _password);
+  res.send(ws);
 });
 
 app.listen(PORT);
