@@ -8,7 +8,7 @@ app.use(cors());
 const PORT = process.env.PORT || 3000;
 
 // File
-const filePath = "C:/Users/Lenovo/Downloads/user-data-api.xlsx";
+const filePath = "./data/user-data-api.xlsx";
 const file = xlsx.readFile(filePath);
 
 // Getting Sheets then converting to JSON
